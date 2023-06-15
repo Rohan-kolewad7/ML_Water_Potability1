@@ -1,12 +1,44 @@
+#pip install pillow
+
+#importing required libraries
+
+from PIL import Image
+import base64
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 import pickle
 
+# Set Streamlit app configuration
+st.set_page_config(layout='wide')
+
 # Load the ML model
 with open('random_forest_model.pkl', 'rb') as file:
     model = pickle.load(file)
+
+def add_bg_from_local(image_file, opacity):
+    with open(image_file, "rb") as file:
+        encoded_string = base64.b64encode(file.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url(data:image/jpeg;base64,{encoded_string});
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            opacity: {opacity};
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Example usage with opacity of 0.9
+add_bg_from_local('img4.jpg', opacity=0.9)
+
 
 # Define function to preprocess user input
 def preprocess_input(ph, hardness, solids, chloramines, sulfate, conductivity, organic_carbon, trihalomethanes, turbidity):
@@ -43,13 +75,10 @@ def plot_single_parameter_graph(data, parameter, acceptable_range, ax):
     ax.axhline(y=acceptable_range[1], color='r', linestyle='--')
     ax.axhline(y=parameter_value, color='b', linestyle='-', label='User {} Level'.format(parameter.capitalize()))
     ax.legend()
-
-# Set Streamlit app configuration
-st.set_page_config(layout='wide')
-
+    
 # Add title and description
-st.title('Water Potability Prediction')
-st.markdown('Enter the values for various features to predict the potability of water.')
+st.markdown('<h1 style="color: black;">Water Potability Prediction</h1>', unsafe_allow_html=True)
+st.markdown('<p style="color: black;">Enter the values for various features to predict the potability of water.</p>', unsafe_allow_html=True)
 
 # Add input boxes for user input
 col1, col2, col3, col4 = st.columns(4)
