@@ -52,7 +52,7 @@ st.title('Video page')
 
 
 
-def add_bg_from_local(image_file, opacity):
+''' def add_bg_from_local(image_file, opacity):
     with open(image_file, "rb") as file:
         encoded_string = base64.b64encode(file.read()).decode()
 
@@ -72,7 +72,7 @@ def add_bg_from_local(image_file, opacity):
     )
 
 # Example usage with opacity of 0.9
-add_bg_from_local('img4.jpg', opacity=0.9)
+add_bg_from_local('img4.jpg', opacity=0.9) '''
 
 
 # Define function to preprocess user input
