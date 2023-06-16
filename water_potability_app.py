@@ -17,10 +17,7 @@ st.set_page_config(layout='wide')
 with open('random_forest_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
-
-import streamlit as st
-
-st.set_page_config(layout="wide")
+#adding video
 
 video_html = """
 		<style>
